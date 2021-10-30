@@ -1,7 +1,7 @@
 import "./dialog.scss";
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
-import Icon from "../Icon";
+import Icon from "../Icon/icon";
 import { scopedClassMaker } from "../classes";
 
 const scopedClass = scopedClassMaker("fui-dialog");
@@ -29,6 +29,7 @@ const Dialog = (props) => {
         <main className={sc("main")}>{props.children}</main>
         <footer className={sc("footer")}>
           {/* {props.buttons} */}
+          {/* 给传过来的元素添加新的属性 */}
           {props.buttons.map((button, index) =>
             React.cloneElement(button, { key: index })
           )}

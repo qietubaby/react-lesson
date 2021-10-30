@@ -1,5 +1,5 @@
 // import zan from '../icons/zan.svg'
-import '../importIcons';
+import './importIcons';
 import './icon.css';
 import classes from '../helpers/classes';
 
