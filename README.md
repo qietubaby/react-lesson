@@ -1,4 +1,4 @@
-# 组件开发笔记
+# 组件开发日记
 
 ## Icon
 - svg图标使用 svg-sprite-loader加载
