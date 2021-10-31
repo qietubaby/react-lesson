@@ -29,8 +29,8 @@ const Dialog = (props) => {
         <main className={sc("main")}>{props.children}</main>
         <footer className={sc("footer")}>
           {/* {props.buttons} */}
-          {/* 给传过来的元素添加新的属性 */}
-          {props.buttons.map((button, index) =>
+          {/* 给传过来的元素添加新的属性 key*/}
+          {props.buttons && props.buttons.map((button, index) =>
             React.cloneElement(button, { key: index })
           )}
         </footer>
@@ -39,6 +39,7 @@ const Dialog = (props) => {
   ) : null;
 
   return (
+    // react 传送门
     ReactDOM.createPortal(x, document.body)
   )
 };
@@ -46,5 +47,29 @@ const Dialog = (props) => {
 Dialog.defaultProps = {
   closeOnClickMask: false,
 };
+
+/*
+  创建alert组件，使用Dialog组件进行二次改造
+    ① 声明一个组件
+    ② 声明一个div
+    ③ 把组件放在div里面
+    ④ 把div放到body里面
+  
+  关闭组件：重新渲染组件，只不过把 visible 的属性变成false，
+  unmountComponentAtNode React把组件从div身上移除，包括事件之类的，然后再移除div回复原状
+*/
+
+const alert = (content) => {
+  const component = <Dialog visible={true} onClose={() => {
+    ReactDOM.render(React.cloneElement(component, {visible: false}), div);
+    ReactDOM.unmountComponentAtNode(div)
+    div.remove()
+  }}>{content}</Dialog>
+  const div = document.createElement('div');
+  document.body.append(div);
+  ReactDOM.render(component, div);
+};
+
+export {alert};
 
 export default Dialog;
