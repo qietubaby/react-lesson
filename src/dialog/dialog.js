@@ -103,7 +103,44 @@ const confirm = (content, yes, no) => {
   ReactDOM.render(component, div);
 }
 
-export {alert, confirm};
+
+
+/*
+  model
+
+  function f1() {
+    let visible = false;
+    return () => {
+      visible = true
+    }
+  }
+
+  // 如何在这里把 visible 的值改掉，需要在函数中提供改变 visible 的方法
+  const api = f1()
+  api() // 调用一下 visible 变为了 true
+*/
+
+const modal = (content) => {
+  const onClose = () => {
+    ReactDOM.render(React.cloneElement(component, {visible: false}), div);
+    ReactDOM.unmountComponentAtNode(div)
+    div.remove();
+  }
+  const component = (
+    <Dialog 
+      visible={true}
+      onClose={onClose}
+      >{content}
+    </Dialog>)
+  const div = document.createElement('div');
+  document.body.append(div);
+  ReactDOM.render(component, div);
+  
+  // 最后一句很关键，返回一个关闭modal的方法供外面调用，可以看上面注释当中的简单解析
+  return onClose;
+}
+
+export {alert, confirm, modal};
 
 export default Dialog;
 

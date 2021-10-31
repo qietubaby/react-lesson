@@ -1,8 +1,16 @@
 import { useState } from "react";
-import Dialog, {alert, confirm} from "./dialog";
+import Dialog, {alert, confirm, modal} from "./dialog";
 
 const DialogExample = () => {
   const [x, setX] = useState(false);
+
+  const openModal = () => {
+    // modal 返回了一个 关闭弹窗的方法 close() 调用的就是这个方法
+    const close = modal(<h1>你好
+      <button onClick={() => {close()}}>close</button>
+    </h1>)
+  }
+
   return (
     <div>
       <div style={{ border: "1px solid red" }}>
@@ -37,12 +45,20 @@ const DialogExample = () => {
 
       <div style={{ border: "1px solid red" }}>
         <button onClick={() => {
-          return confirm('1', () => {
+          return confirm('confirm Demo', () => {
             console.log('你点击了yes');
           }, () => {
             console.log('你点击了no')
           })
         }}>confirm</button>
+  
+      </div>
+
+
+
+
+      <div style={{ border: "1px solid red" }}>
+        <button onClick={openModal}>model</button>
   
       </div>
     </div>
