@@ -5,7 +5,7 @@ const DialogExample = () => {
   const [x, setX] = useState(false);
 
   const openModal = () => {
-    // modal 返回了一个 关闭弹窗的方法 close() 调用的就是这个方法
+    // modal 返回了一个 关闭弹窗的方法 close() 调用的就是这个方法关闭自己
     const close = modal(<h1>你好
       <button onClick={() => {close()}}>close</button>
     </h1>)

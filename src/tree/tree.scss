@@ -1,0 +1,37 @@
+.fui-tree {
+  &-item {
+    outline: 1px solid;
+    line-height: 1.5;
+  }
+  &-text {
+    &:hover {
+    
+      display: block;
+      cursor: pointer;
+    }
+  }
+  &-collapsed {
+    height: 0;
+    overflow: hidden;
+  }
+  &-level-1 {
+    .fui-tree-text {
+      padding-left: 0em;
+    }
+  }
+  &-level-2 {
+    .fui-tree-text {
+      padding-left: 1em;
+    }
+  }
+  &-level-3 {
+    .fui-tree-text {
+      padding-left: 2em;
+    }
+  }
+  &-level-4 {
+    .fui-tree-text {
+      padding-left: 3em;
+    }
+  }
+}

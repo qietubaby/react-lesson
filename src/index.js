@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
+// import App from './App';
 import * as serviceWorker from './serviceWorker';
+import './App.js';
 import {HashRouter as Router, Route, Link} from 'react-router-dom';
-import IconExample from './Icon/icon.example';
-import dialogExample from './dialog/dialog.example'
-
+import dialogExample from './dialog/dialog.example';
+import formExample from './form/form.example';
+import scrollExample from './scroll/scroll.example';
+import TreeExample from './tree/tree.example';
 ReactDOM.render(
   <Router>
     <div>
@@ -19,16 +22,24 @@ ReactDOM.render(
           <h2>组件</h2>
           <ul>
             <li>
-              <Link to="/icon">Icon</Link>
+              <Link to="/dialog">Dialog</Link>
             </li>
             <li>
-              <Link to="/dialog">Dialog</Link>
+              <Link to="/form">Form</Link>
+            </li>
+            <li>
+              <Link to="/scroll">Scroll</Link>
+            </li>
+            <li>
+              <Link to="/tree">Tree</Link>
             </li>
           </ul>
         </aside>
         <main>
-          <Route path="/icon" component={IconExample}></Route>
           <Route path="/dialog" component={dialogExample}></Route>
+          <Route path="/form" component={formExample}></Route>
+          <Route path="/scroll" component={scrollExample}></Route>
+          <Route path="/tree" component={TreeExample}></Route>
         </main>
       </div>
     </div>

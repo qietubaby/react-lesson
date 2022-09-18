@@ -27,13 +27,16 @@ const Dialog = (props) => {
         </div>
         <header className={sc("header")}>提示</header>
         <main className={sc("main")}>{props.children}</main>
-        <footer className={sc("footer")}>
-          {/* {props.buttons} */}
-          {/* 给传过来的元素添加新的属性 key*/}
-          {props.buttons && props.buttons.map((button, index) =>
-            React.cloneElement(button, { key: index })
-          )}
-        </footer>
+        {props.buttons && props.buttons.length > 0 && (
+          <footer className={sc("footer")}>
+            {/* {props.buttons} */}
+            {/* 给传过来的元素添加新的属性 key*/}
+            {props.buttons &&
+              props.buttons.map((button, index) =>
+                React.cloneElement(button, { key: index })
+              )}
+          </footer>
+        )}
       </div>
     </Fragment>
   ) : null;
@@ -41,7 +44,7 @@ const Dialog = (props) => {
   return (
     // react 传送门
     ReactDOM.createPortal(x, document.body)
-  )
+  );
 };
 
 Dialog.defaultProps = {
@@ -60,16 +63,24 @@ Dialog.defaultProps = {
 */
 
 const alert = (content) => {
-  const component = <Dialog visible={true} onClose={() => {
-    ReactDOM.render(React.cloneElement(component, {visible: false}), div);
-    ReactDOM.unmountComponentAtNode(div)
-    div.remove()
-  }}>{content}</Dialog>
-  const div = document.createElement('div');
+  const onClose = () => {
+    ReactDOM.render(React.cloneElement(component, { visible: false }), div);
+    ReactDOM.unmountComponentAtNode(div);
+    div.remove();
+  };
+  const component = (
+    <Dialog
+      visible={true}
+      buttons={[<button onClick={onClose}> Ok </button>]}
+      onClose={onClose}
+    >
+      {content}
+    </Dialog>
+  );
+  const div = document.createElement("div");
   document.body.append(div);
   ReactDOM.render(component, div);
 };
-
 
 /*
   创建 confirm api，使用Dialog组件进行二次改造
@@ -77,33 +88,33 @@ const alert = (content) => {
 
 const confirm = (content, yes, no) => {
   const onYes = () => {
-    ReactDOM.render(React.cloneElement(component, {visible: false}), div);
-    ReactDOM.unmountComponentAtNode(div)
+    ReactDOM.render(React.cloneElement(component, { visible: false }), div);
+    ReactDOM.unmountComponentAtNode(div);
     div.remove();
     yes && yes();
-  }
+  };
   const onNo = () => {
-    ReactDOM.render(React.cloneElement(component, {visible: false}), div);
+    ReactDOM.render(React.cloneElement(component, { visible: false }), div);
     ReactDOM.unmountComponentAtNode(div);
     div.remove();
     no && no();
-  }
+  };
   const component = (
-    <Dialog 
+    <Dialog
       visible={true}
       onClose={onNo}
       buttons={[
         <button onClick={onYes}>yes</button>,
-        <button onClick={onNo}>no</button>
+        <button onClick={onNo}>no</button>,
       ]}
-      >{content}
-    </Dialog>)
-  const div = document.createElement('div');
+    >
+      {content}
+    </Dialog>
+  );
+  const div = document.createElement("div");
   document.body.append(div);
   ReactDOM.render(component, div);
-}
-
-
+};
 
 /*
   model
@@ -122,27 +133,23 @@ const confirm = (content, yes, no) => {
 
 const modal = (content) => {
   const onClose = () => {
-    ReactDOM.render(React.cloneElement(component, {visible: false}), div);
-    ReactDOM.unmountComponentAtNode(div)
+    ReactDOM.render(React.cloneElement(component, { visible: false }), div);
+    ReactDOM.unmountComponentAtNode(div);
     div.remove();
-  }
+  };
   const component = (
-    <Dialog 
-      visible={true}
-      onClose={onClose}
-      >{content}
-    </Dialog>)
-  const div = document.createElement('div');
+    <Dialog visible={true} onClose={onClose}>
+      {content}
+    </Dialog>
+  );
+  const div = document.createElement("div");
   document.body.append(div);
   ReactDOM.render(component, div);
-  
+
   // 最后一句很关键，返回一个关闭modal的方法供外面调用，可以看上面注释当中的简单解析
   return onClose;
-}
+};
 
-export {alert, confirm, modal};
+export { alert, confirm, modal };
 
 export default Dialog;
-
-
-

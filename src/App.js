@@ -1,10 +1,10 @@
 import React from 'react';
-import DialogExample from './dialog/dialog.example';
+import DialogExp from './dialog/dialog.example';
 
 
 
 const App = () => {
-    return (<DialogExample></DialogExample>)
+    return (<DialogExp></DialogExp>)
 }
   
 export default App;
